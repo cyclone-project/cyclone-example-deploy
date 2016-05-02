@@ -1,3 +1,6 @@
+###################
+# Core components #
+###################
 
 keycloak:
     build: components/keycloak
@@ -43,7 +46,30 @@ cacheclean:
         - KEYCLOAK_ADMIN_CLIENT=admin-cli
         - KEYCLOAK_REALM=master
         - PERIOD=60000
-        - EXCLUDED_USERS=admin;owner;tub;uva;cnrs;guest
+        - EXCLUDED_USERS=admin;owner;tub;uva;cnrs;guest;test1
     links:
         - keycloakdb
         - keycloak
+
+#####################
+# Wordpress example #
+#####################
+wordpressdb:
+  image: mysql:5.7
+  container_name: cyclone-wp-db
+  environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_DATABASE=wordpress
+    - OIDC_URL_BASE=http://test.com
+  ports:
+    - "3306:3306"
+
+wordpress:
+  build: components/wordpress
+  container_name: cyclone-wp-website
+  environment:
+    - WORDPRESS_DB_PASSWORD=password
+  links:
+    - wordpressdb:mysql
+  ports:
+    - "80:80"
