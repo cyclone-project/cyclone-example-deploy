@@ -14,6 +14,7 @@ COPY config/keycloak-server.json /opt/keycloak/standalone/configuration/keycloak
 COPY config/standalone.xml       /opt/keycloak/standalone/configuration/standalone.xml
 COPY theme/cyclone               /opt/keycloak/standalone/configuration/themes/cyclone
 
+RUN keycloak/bin/add-user.sh -r master -u test1 -p test1
 ENTRYPOINT ["/opt/keycloak/bin/standalone.sh"]
 
 EXPOSE 8080
