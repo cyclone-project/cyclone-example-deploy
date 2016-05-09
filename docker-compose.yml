@@ -60,7 +60,6 @@ wordpressdb:
   environment:
     - MYSQL_ROOT_PASSWORD=password
     - MYSQL_DATABASE=wordpress
-    - OIDC_URL_BASE=http://test.com
   ports:
     - "3306:3306"
 
@@ -69,7 +68,9 @@ wordpress:
   container_name: cyclone-wp-website
   environment:
     - WORDPRESS_DB_PASSWORD=password
+    - OIDC_URL_BASE=http://cyclone-samlbridge
   links:
     - wordpressdb:mysql
+    - keycloak:keycloak
   ports:
     - "80:80"

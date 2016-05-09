@@ -27,10 +27,10 @@ openIdConfig = JSON.parse(fileContents)
 
 
 # Replace the base URL if we have it set as an ENV variable
-if !ENV["OIDC_URL_BASE"].nil?
-  openIdConfig["gen_openid_con_ep_login"] = openIdConfig["gen_openid_con_ep_login"].sub! 'https://federation.cyclone-project.eu', ENV["OIDC_URL_BASE"]
-  openIdConfig["gen_openid_con_ep_token"] = openIdConfig["gen_openid_con_ep_token"].sub! 'https://federation.cyclone-project.eu', ENV["OIDC_URL_BASE"]
-  openIdConfig["gen_openid_con_ep_userinfo"] = openIdConfig["gen_openid_con_ep_userinfo"].sub! 'https://federation.cyclone-project.eu', ENV["OIDC_URL_BASE"]
+if !ENV["CYCLONE_KEYCLOAK_PORT_8080_TCP_ADDR"].nil?
+  openIdConfig["gen_openid_con_ep_login"] = openIdConfig["gen_openid_con_ep_login"].sub! 'cyclone-samlbridge', ENV["CYCLONE_KEYCLOAK_PORT_8080_TCP_ADDR"]
+  openIdConfig["gen_openid_con_ep_token"] = openIdConfig["gen_openid_con_ep_token"].sub! 'cyclone-samlbridge', ENV["CYCLONE_KEYCLOAK_PORT_8080_TCP_ADDR"]
+  openIdConfig["gen_openid_con_ep_userinfo"] = openIdConfig["gen_openid_con_ep_userinfo"].sub! 'cyclone-samlbridge', ENV["CYCLONE_KEYCLOAK_PORT_8080_TCP_ADDR"]
 end
 
 
