@@ -21,8 +21,6 @@ keycloakdb:
     image: mongo:2.6
     container_name: cyclone-keycloakdb
     restart: unless-stopped
-    volumes:
-        - ./data/keycloak/db:/data/db
     expose:
         - "27017"
 
@@ -68,9 +66,19 @@ wordpress:
   container_name: cyclone-wp-website
   environment:
     - WORDPRESS_DB_PASSWORD=password
-    - OIDC_URL_BASE=http://cyclone-samlbridge
+    - OIDC_URL_BASE=http://localhost:9080
   links:
     - wordpressdb:mysql
     - keycloak:keycloak
   ports:
     - "80:80"
+
+###################
+# SSH PAM Example #
+###################
+sshpam:
+  build: components/ssh-pam
+  container_name: cyclone-sshpam
+  ports:
+    - "7000-7050:7000-7050"
+    - "2222:22"
